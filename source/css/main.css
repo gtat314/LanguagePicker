@@ -1,0 +1,155 @@
+language-picker {
+    display: block;
+}
+
+language-picker.active {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100vw;
+	height: 100vh;
+}
+
+language-picker .switcherElem {
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 0.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--theme-reverseBackground, rgba(255, 255, 255, 0.9));
+	background-color: var(--theme-background, rgba(255, 255, 255, 1));
+	transition-property: border-color, background-color;
+	transition-duration: var(--theme-transitionDuration, 0.15s);
+	z-index: 2;
+}
+
+language-picker .switcherElem svg {
+	fill: var(--theme-reverseBackground, rgba(0, 0, 0, 0.9));
+	width: 2rem;
+	transition-property: fill;
+	transition-duration: var(--theme-transitionDuration, 0.15s);
+}
+
+language-picker .listElem {
+	position: fixed;
+	top: 5rem;
+	right: 4.5rem;
+	max-width: 20rem;
+	width: 90%;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	background-color: var(--theme-background, rgba(255, 255, 255, 1));
+	z-index: 1;
+	opacity: 0;
+	display: none;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--theme-reverseBackground, rgba(255, 255, 255, 0.9));
+}
+
+language-picker .listElem.active {
+	opacity: 1;
+	display: flex;
+}
+
+language-picker .listElem a {
+	display: flex;
+	align-items: center;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+    transition-property: background-color;
+    transition-duration: var(--theme-transitionDuration, 0.15s);
+}
+
+language-picker .listElem a:hover {
+	background-color: var(--theme-highlightedBackgroundColor, rgba(0, 0, 0, 0.1));
+}
+
+language-picker .listElem a svg {
+	min-width: 2rem;
+	max-width: 2rem;
+	height: 2rem;
+	border-radius: 0.5rem;
+	margin-right: 1rem;
+}
+
+language-picker .listElem a .text h3 {
+	color: var(--theme-reverseBackground, rgba(0, 0, 0, 0.9));
+	line-height: 1.25;
+    transition-property: color;
+    transition-duration: var(--theme-transitionDuration, 0.15s);
+}
+
+language-picker .listElem a .text p {
+	font-size: 0.85rem;
+	color: var(--theme-secondaryFont, rgba(0, 0, 0, 0.6));
+	line-height: 1.25;
+	letter-spacing: -0.5px;
+    transition-property: color;
+    transition-duration: var(--theme-transitionDuration, 0.15s);
+}
+
+language-picker .listElem hr {
+	border-top: medium none;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--theme-discreetBoxShadow, rgba(0, 0, 0, 0.2));
+	width: 95%;
+	margin: 0 auto;
+}
+
+
+
+
+@media only screen and (max-width: 1410px) {
+
+	language-picker .switcherElem {
+		top: 5rem;
+		right: 5%;
+	}
+
+	language-picker .listElem {
+        top: 6rem;
+        right: calc(5% + 3rem + 0.5rem);
+    }
+
+}
+
+
+
+
+@media only screen and (max-width: 1010px) {
+
+	language-picker .switcherElem {
+		top: 1rem;
+		right: calc(5% + 3rem);
+		z-index: 1;
+		border: medium none;
+	}
+
+	language-picker .switcherElem.active {
+		border-radius: 0.5rem 0.5rem 0 0;
+	}
+
+	language-picker .switcherElem svg {
+		width: 66%;
+	}
+
+	language-picker .listElem {
+		top: 5rem;
+		border-radius: 0.5rem;
+		right: 5%;
+	}
+
+}
