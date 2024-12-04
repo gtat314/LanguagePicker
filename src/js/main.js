@@ -98,6 +98,7 @@ LanguagePicker.prototype._createFromSchema = function( schema ) {
         var blockElem = document.createElement( 'A' );
         blockElem.setAttribute( 'href', schema.blocks[ i ].href );
         blockElem.setAttribute( 'data-prefix', schema.blocks[ i ].prefix );
+        blockElem.setAttribute( 'aria-label', schema.blocks[ i ].title );
         this._listElem.appendChild( blockElem );
 
         blockElem.addEventListener( 'click', this._evt_click_language.bind( this ) );
