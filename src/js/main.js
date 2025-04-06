@@ -161,33 +161,82 @@ LanguagePicker.prototype._evt_click_languageSwitcher = function() {
 
 };
 
+/**
+ * Handles the language selection event when a user clicks on a language picker.
+ * This function redirects the user to the appropriate language subfolder (e.g., "/en/", "/fr/") based on the selected language.
+ * If the selected language is Greek (or the default language), it does not add a language subfolder and redirects to the root path.
+ * 
+ * ### Flow:
+ * 1. Prevents the default behavior of the click event.
+ * 2. Gets the selected language prefix (e.g., 'en', 'el') from the clicked element.
+ * 3. Analyzes the current path of the URL to check if a language subfolder is already present.
+ * 4. If the current path has a language prefix, it removes the existing language prefix.
+ * 5. If the selected language is Greek ('el'), the function redirects to the root path (no subfolder).
+ * 6. For other languages, the function adds the selected language as a subfolder to the path.
+ * 7. Ensures that the homepage (i.e., the root) gets redirected correctly with a trailing slash (e.g., from 'https://example.com' to 'https://example.com/en/').
+ * 8. If the new URL is different from the current one, it redirects the user to the new language URL.
+ * 
+ * @param {Event} evt - The click event triggered by the user selecting a language.
+ */
 LanguagePicker.prototype._evt_click_language = function( evt ) {
 
     evt.preventDefault();
 
-    var newSubdomain;
+    var selectedPrefix = evt.currentTarget.getAttribute( 'data-prefix' );
 
-    var hostname = window.location.hostname.split('.');
-    hostname.reverse();
-    hostname = hostname[ 1 ] + '.' + hostname[ 0 ];
+    var currentPath = window.location.pathname;
 
-    if ( evt.currentTarget.getAttribute( 'data-prefix' ) === 'el' ) {
+    // Check if the current path already has a language prefix
+    var pathSegments = currentPath.split( '/' );
 
-        newSubdomain = 'https://' + hostname + window.location.pathname;
+    // Remove empty string at the start if path starts with '/'
+    if ( pathSegments[0] === '' ) {
 
-    } else {
-
-        newSubdomain = 'https://' + evt.currentTarget.getAttribute( 'data-prefix' ) + '.' + hostname + window.location.pathname;
+        pathSegments.shift();
 
     }
 
-    if ( window.location.href === newSubdomain ) {
+    // Check if we need to remove the current language prefix (if any)
+    var knownLangs = [ 'en', 'el' ]; // Add all your supported language codes here
+
+    if ( knownLangs.indexOf( pathSegments[0] ) !== -1 ) {
+
+        pathSegments.shift(); // Remove current language prefix
+
+    }
+
+    // If the selected language is Greek (or the default), don't add any subfolder
+    var newPath;
+
+    if ( selectedPrefix === 'el' ) {
+
+        newPath = '/' + pathSegments.join( '/' );
+
+    } else {
+
+        // Add the selected language as a subfolder
+        pathSegments.unshift( selectedPrefix );
+
+        newPath = '/' + pathSegments.join( '/' );
+    }
+
+    // Ensure trailing slash for index page (homepage case)
+    if ( newPath === '/' + selectedPrefix ) {
+
+        newPath += '/';
+
+    }
+
+    var newUrl = window.location.origin + newPath;
+
+    // Redirect only if the new URL is different
+    if ( window.location.href === newUrl ) {
 
         this._evt_click_languageSwitcher();
 
     } else {
 
-        window.location.href = newSubdomain;
+        window.location.href = newUrl;
 
     }
 
