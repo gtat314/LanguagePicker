@@ -41,21 +41,20 @@ language-picker .switcherElem svg {
 language-picker .listElem {
 	position: fixed;
 	top: 5rem;
-	right: 4.5rem;
+	right: 1rem;
 	max-width: 20rem;
 	width: 90%;
 	padding: 0.5rem;
 	border-radius: 0.5rem;
-	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
 	background-color: var(--theme-background, rgba(255, 255, 255, 1));
 	z-index: 1;
 	opacity: 0;
 	display: none;
-    border-style: solid;
-    border-width: 2px;
-    border-color: var(--theme-reverseBackground, rgba(255, 255, 255, 0.9));
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--theme-reverseBackground, rgba(255, 255, 255, 0.9));
 }
 
 language-picker .listElem.active {
@@ -120,9 +119,9 @@ language-picker .listElem hr {
 	}
 
 	language-picker .listElem {
-        top: 6rem;
-        right: calc(5% + 3rem + 0.5rem);
-    }
+		top: 5rem;
+		right: calc(5% + 4rem);
+	}
 
 }
 
